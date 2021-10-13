@@ -1,0 +1,387 @@
+/**
+ * Created by hackurity on 2017. 11. 27..
+ */
+
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+
+body {
+  background-color: #eeeeee;
+  font-family: "Nanum Gothic";
+  padding: 20px 30px 30px 30px;
+}
+
+.container {
+  margin: auto;
+  max-width: 740px;
+  width: 100%;
+}
+
+/* Animation Helper Class
+ ------------------------------*/
+.scale-zero {
+  transform: scale(0);
+}
+
+.scale-y-zero {
+  transform: scaleY(0);
+}
+
+/* Option CSS
+ ------------------------------*/
+#option {
+  margin-bottom: 20px;
+}
+
+#option .row {
+  display: block;
+}
+
+#option .row .col {
+  display: inline-block;
+  width: 72px;
+  height: 30px;
+  padding: 5px;
+}
+
+#option .row .col.name {
+  width: 50px;
+  font-size: 13px;
+  font-weight: bold;
+  text-align: left;
+}
+
+#option .row .col .btn-option {
+  text-align: center;
+  width: 100%;
+  padding: 10px;
+  border-radius: 3px;
+  background-color: rgba(82, 77, 83, 0.5);
+  font-size: 11px;
+  color: #ffffff;
+  border: 0;
+  font-family: "Nanum Gothic";
+}
+
+#option .row .col .btn-option.selected {
+  font-weight: bold;
+  background-color: #524d53;
+}
+
+/* Chart Common CSS
+ ------------------------------*/
+#chart {
+  background-color: #ffffff;
+  padding: 20px;
+  height: 400px;
+  position: relative;
+}
+
+#chart .chart-guide {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 1.67;
+  text-align: center;
+  color: #9b9b9b;
+  white-space: nowrap;
+}
+
+#chart .chart-head .chart-title {
+  font-size: 15px;
+  font-weight: bold;
+  text-align: center;
+}
+
+#chart .chart-body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  position: relative;
+  padding-top: 50px;
+}
+
+#chart .chart-body .chart-graph {
+}
+
+#chart .chart-body .chart-graph .chart-graph-inner {
+  height: 100%;
+  position: relative;
+}
+
+#chart .chart-body .chart-legend {
+  vertical-align: middle;
+}
+
+#chart .chart-body .chart-legend .chart-legend-inner {
+  line-height: 30px;
+}
+
+#chart .chart-body .chart-legend .chart-legend-inner .legend-row {
+}
+
+#chart .chart-body .chart-legend .chart-legend-inner .legend-row .rect-sm {
+  vertical-align: middle;
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin: 5px;
+}
+
+#chart
+  .chart-body
+  .chart-legend
+  .chart-legend-inner
+  .legend-row:nth-of-type(1)
+  .rect-sm {
+  background-color: #3ec1c1;
+}
+#chart
+  .chart-body
+  .chart-legend
+  .chart-legend-inner
+  .legend-row:nth-of-type(2)
+  .rect-sm {
+  background-color: #f55858;
+}
+#chart
+  .chart-body
+  .chart-legend
+  .chart-legend-inner
+  .legend-row:nth-of-type(3)
+  .rect-sm {
+  background-color: #4a90e2;
+}
+#chart
+  .chart-body
+  .chart-legend
+  .chart-legend-inner
+  .legend-row:nth-of-type(4)
+  .rect-sm {
+  background-color: #ffcf00;
+}
+
+#chart .chart-body .chart-legend .chart-legend-inner .legend-row .label {
+  vertical-align: middle;
+  display: inline-block;
+  font-size: 10px;
+}
+
+.tooltip {
+  visibility: hidden;
+  background-color: rgba(0, 0, 0, 0.74);
+  font-size: 11px;
+  font-weight: bold;
+  text-align: center;
+  color: #ffffff;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 10000;
+  transform: translate(0, 50%);
+  padding: 8px 10px;
+  white-space: nowrap;
+}
+
+.tooltip::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  margin-top: -5px;
+  border-width: 5px;
+  border-style: solid;
+}
+
+.tooltip.tooltip-right {
+  margin-left: 10px;
+}
+.tooltip.tooltip-right::after {
+  right: 100%;
+  border-color: transparent rgba(0, 0, 0, 0.74) transparent transparent;
+}
+
+.tooltip.tooltip-left {
+  margin-right: 10px;
+}
+.tooltip.tooltip-left::after {
+  left: 100%;
+  border-color: transparent transparent transparent rgba(0, 0, 0, 0.74);
+}
+
+/* Bar Chart CSS
+ ------------------------------*/
+#chart.for-bar .chart-body .chart-graph {
+  width: 100%;
+}
+
+#chart.for-bar .chart-body .chart-graph .chart-graph-inner {
+  height: 300px;
+  margin: 0px 30px 30px 60px;
+}
+
+#chart.for-bar .chart-body .chart-graph .chart-graph-inner .label-table {
+  border-collapse: collapse;
+  width: 100%;
+  height: 100%;
+  border-bottom: 1px solid #979797;
+  border-left: 1px solid #979797;
+}
+
+#chart.for-bar .chart-body .chart-graph .chart-graph-inner .label-table tr {
+}
+
+#chart.for-bar .chart-body .chart-graph .chart-graph-inner .label-table tr td {
+  border-top: 1px solid rgba(151, 151, 151, 0.3);
+  border-right: 1px solid rgba(151, 151, 151, 0.3);
+  position: relative;
+}
+
+#chart.for-bar
+  .chart-body
+  .chart-graph
+  .chart-graph-inner
+  .label-table
+  .y-axis {
+  font-size: 11px;
+  padding: 10px;
+  position: absolute;
+  right: 100%;
+  bottom: 100%;
+  transform: translate(0, 50%);
+}
+
+#chart.for-bar
+  .chart-body
+  .chart-graph
+  .chart-graph-inner
+  .label-table
+  .y-axis.y-axis-zero {
+  top: 100%;
+  transform: translate(0, -50%);
+  bottom: auto;
+}
+
+#chart.for-bar
+  .chart-body
+  .chart-graph
+  .chart-graph-inner
+  .label-table
+  .x-axis {
+  position: absolute;
+  top: 100%;
+  width: 100%;
+  text-align: center;
+  padding: 10px 0;
+  font-size: 11px;
+}
+
+#chart.for-bar .chart-body .chart-graph .chart-graph-inner .bar-table {
+  position: absolute;
+  border-collapse: collapse;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  top: 0;
+  left: 0;
+  -webkit-transition: all 1s ease-in-out 0.1s;
+  -moz-transition: all 1s ease-in-out 0.1s;
+  -ms-transition: all 1s ease-in-out 0.1s;
+  -o-transition: all 1s ease-in-out 0.1s;
+  transition: all 1s ease-in-out 0.1s;
+  transform-origin: bottom;
+}
+
+#chart.for-bar .chart-body .chart-graph .chart-graph-inner .bar-table tr {
+}
+
+#chart.for-bar .chart-body .chart-graph .chart-graph-inner .bar-table tr td {
+  border: 0;
+  vertical-align: bottom;
+}
+
+#chart.for-bar
+  .chart-body
+  .chart-graph
+  .chart-graph-inner
+  .bar-table
+  tr
+  td
+  .bar {
+  width: 60%;
+  height: 30%;
+  margin: auto;
+  position: relative;
+}
+
+#chart.for-bar
+  .chart-body
+  .chart-graph
+  .chart-graph-inner
+  .bar-table
+  tr
+  td
+  .bar:nth-of-type(1) {
+  background-color: #3ec1c1;
+}
+#chart.for-bar
+  .chart-body
+  .chart-graph
+  .chart-graph-inner
+  .bar-table
+  tr
+  td
+  .bar:nth-of-type(2) {
+  background-color: #f55858;
+}
+#chart.for-bar
+  .chart-body
+  .chart-graph
+  .chart-graph-inner
+  .bar-table
+  tr
+  td
+  .bar:nth-of-type(3) {
+  background-color: #4a90e2;
+}
+#chart.for-bar
+  .chart-body
+  .chart-graph
+  .chart-graph-inner
+  .bar-table
+  tr
+  td
+  .bar:nth-of-type(4) {
+  background-color: #ffcf00;
+}
+
+#chart.for-bar
+  .chart-body
+  .chart-graph
+  .chart-graph-inner
+  .bar-table
+  tr
+  td
+  .bar
+  .tooltip {
+  bottom: 50%;
+  left: calc(100% - 8px);
+}
+
+#chart.for-bar .chart-body .chart-legend {
+  text-align: center;
+  position: absolute;
+  top: 15px;
+  left: 0;
+  width: 100%;
+}
+
+#chart.for-bar .chart-body .chart-legend .chart-legend-inner {
+  line-height: normal;
+}
+
+#chart.for-bar .chart-body .chart-legend .chart-legend-inner .legend-row {
+  display: inline-block;
+  margin: 5px 10px;
+}
