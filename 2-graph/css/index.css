@@ -104,9 +104,6 @@ body {
   padding-top: 50px;
 }
 
-#chart .chart-body .chart-graph {
-}
-
 #chart .chart-body .chart-graph .chart-graph-inner {
   height: 100%;
   position: relative;
@@ -118,9 +115,6 @@ body {
 
 #chart .chart-body .chart-legend .chart-legend-inner {
   line-height: 30px;
-}
-
-#chart .chart-body .chart-legend .chart-legend-inner .legend-row {
 }
 
 #chart .chart-body .chart-legend .chart-legend-inner .legend-row .rect-sm {
@@ -170,46 +164,6 @@ body {
   font-size: 10px;
 }
 
-.tooltip {
-  visibility: hidden;
-  background-color: rgba(0, 0, 0, 0.74);
-  font-size: 11px;
-  font-weight: bold;
-  text-align: center;
-  color: #ffffff;
-  border-radius: 6px;
-  position: absolute;
-  z-index: 10000;
-  transform: translate(0, 50%);
-  padding: 8px 10px;
-  white-space: nowrap;
-}
-
-.tooltip::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  margin-top: -5px;
-  border-width: 5px;
-  border-style: solid;
-}
-
-.tooltip.tooltip-right {
-  margin-left: 10px;
-}
-.tooltip.tooltip-right::after {
-  right: 100%;
-  border-color: transparent rgba(0, 0, 0, 0.74) transparent transparent;
-}
-
-.tooltip.tooltip-left {
-  margin-right: 10px;
-}
-.tooltip.tooltip-left::after {
-  left: 100%;
-  border-color: transparent transparent transparent rgba(0, 0, 0, 0.74);
-}
-
 /* Bar Chart CSS
  ------------------------------*/
 #chart.for-bar .chart-body .chart-graph {
@@ -227,9 +181,6 @@ body {
   height: 100%;
   border-bottom: 1px solid #979797;
   border-left: 1px solid #979797;
-}
-
-#chart.for-bar .chart-body .chart-graph .chart-graph-inner .label-table tr {
 }
 
 #chart.for-bar .chart-body .chart-graph .chart-graph-inner .label-table tr td {
@@ -293,9 +244,6 @@ body {
   transform-origin: bottom;
 }
 
-#chart.for-bar .chart-body .chart-graph .chart-graph-inner .bar-table tr {
-}
-
 #chart.for-bar .chart-body .chart-graph .chart-graph-inner .bar-table tr td {
   border: 0;
   vertical-align: bottom;
@@ -354,19 +302,6 @@ body {
   td
   .bar:nth-of-type(4) {
   background-color: #ffcf00;
-}
-
-#chart.for-bar
-  .chart-body
-  .chart-graph
-  .chart-graph-inner
-  .bar-table
-  tr
-  td
-  .bar
-  .tooltip {
-  bottom: 50%;
-  left: calc(100% - 8px);
 }
 
 #chart.for-bar .chart-body .chart-legend {

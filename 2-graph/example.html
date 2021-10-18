@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>그래프 그리기 예시 html</title>
+    <style>
+      @import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+
+      body {
+        background-color: #eeeeee;
+        font-family: "Nanum Gothic";
+        padding: 20px 30px 30px 30px;
+      }
+
+      .container {
+        margin: auto;
+        max-width: 740px;
+        width: 100%;
+      }
+
+      /* Animation Helper Class
+      ------------------------------*/
+      .scale-zero {
+        transform: scale(0);
+      }
+
+      .scale-y-zero {
+        transform: scaleY(0);
+      }
+
+      /* Option CSS
+      ------------------------------*/
+      #option {
+        margin-bottom: 20px;
+      }
+
+      #option .row {
+        display: block;
+      }
+
+      #option .row .col {
+        display: inline-block;
+        width: 72px;
+        height: 30px;
+        padding: 5px;
+      }
+
+      #option .row .col.name {
+        width: 50px;
+        font-size: 13px;
+        font-weight: bold;
+        text-align: left;
+      }
+
+      #option .row .col .btn-option {
+        text-align: center;
+        width: 100%;
+        padding: 10px;
+        border-radius: 3px;
+        background-color: rgba(82, 77, 83, 0.5);
+        font-size: 11px;
+        color: #ffffff;
+        border: 0;
+        font-family: "Nanum Gothic";
+      }
+
+      #option .row .col .btn-option.selected {
+        font-weight: bold;
+        background-color: #524d53;
+      }
+
+      /* Chart Common CSS
+      ------------------------------*/
+      #chart {
+        background-color: #ffffff;
+        padding: 20px;
+        height: 400px;
+        position: relative;
+      }
+
+      #chart .chart-guide {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 18px;
+        font-weight: bold;
+        line-height: 1.67;
+        text-align: center;
+        color: #9b9b9b;
+        white-space: nowrap;
+      }
+
+      #chart .chart-head .chart-title {
+        font-size: 15px;
+        font-weight: bold;
+        text-align: center;
+      }
+
+      #chart .chart-body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        position: relative;
+        padding-top: 50px;
+      }
+
+      #chart .chart-body .chart-graph .chart-graph-inner {
+        height: 100%;
+        position: relative;
+      }
+
+      #chart .chart-body .chart-legend {
+        vertical-align: middle;
+      }
+
+      #chart .chart-body .chart-legend .chart-legend-inner {
+        line-height: 30px;
+      }
+
+      #chart
+        .chart-body
+        .chart-legend
+        .chart-legend-inner
+        .legend-row
+        .rect-sm {
+        vertical-align: middle;
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        margin: 5px;
+      }
+
+      #chart
+        .chart-body
+        .chart-legend
+        .chart-legend-inner
+        .legend-row:nth-of-type(1)
+        .rect-sm {
+        background-color: #3ec1c1;
+      }
+      #chart
+        .chart-body
+        .chart-legend
+        .chart-legend-inner
+        .legend-row:nth-of-type(2)
+        .rect-sm {
+        background-color: #f55858;
+      }
+      #chart
+        .chart-body
+        .chart-legend
+        .chart-legend-inner
+        .legend-row:nth-of-type(3)
+        .rect-sm {
+        background-color: #4a90e2;
+      }
+      #chart
+        .chart-body
+        .chart-legend
+        .chart-legend-inner
+        .legend-row:nth-of-type(4)
+        .rect-sm {
+        background-color: #ffcf00;
+      }
+
+      #chart .chart-body .chart-legend .chart-legend-inner .legend-row .label {
+        vertical-align: middle;
+        display: inline-block;
+        font-size: 10px;
+      }
+
+      /* Pi Chart CSS
+      ------------------------------*/
+      #chart.for-pi .chart-body .chart-graph {
+        vertical-align: middle;
+        display: inline-block;
+        width: 70%;
+      }
+
+      #chart.for-pi .chart-body .chart-graph .chart-graph-inner {
+        margin: auto;
+        width: 300px;
+        height: 300px;
+      }
+      #chart.for-pi .chart-body .chart-graph .chart-graph-inner .pi {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        -webkit-transition: all 1s ease-in-out 0.1s;
+        -moz-transition: all 1s ease-in-out 0.1s;
+        -ms-transition: all 1s ease-in-out 0.1s;
+        -o-transition: all 1s ease-in-out 0.1s;
+        transition: all 1s ease-in-out 0.1s;
+      }
+
+      #chart.for-pi .chart-body .chart-graph .chart-graph-inner .pi-1 {
+        background-color: #3ec1c1;
+      }
+      #chart.for-pi .chart-body .chart-graph .chart-graph-inner .pi-2 {
+        background-color: #f55858;
+      }
+      #chart.for-pi .chart-body .chart-graph .chart-graph-inner .pi-3 {
+        background-color: #4a90e2;
+      }
+      #chart.for-pi .chart-body .chart-graph .chart-graph-inner .pi-4 {
+        background-color: #ffcf00;
+      }
+
+      #chart.for-pi .chart-body .chart-legend {
+        display: inline-block;
+        width: 30%;
+      }
+
+      /* Bar Chart CSS
+      ------------------------------*/
+      #chart.for-bar .chart-body .chart-graph {
+        width: 100%;
+      }
+
+      #chart.for-bar .chart-body .chart-graph .chart-graph-inner {
+        height: 300px;
+        margin: 0px 30px 30px 60px;
+      }
+
+      #chart.for-bar .chart-body .chart-graph .chart-graph-inner .label-table {
+        border-collapse: collapse;
+        width: 100%;
+        height: 100%;
+        border-bottom: 1px solid #979797;
+        border-left: 1px solid #979797;
+      }
+
+      #chart.for-bar
+        .chart-body
+        .chart-graph
+        .chart-graph-inner
+        .label-table
+        tr
+        td {
+        border-top: 1px solid rgba(151, 151, 151, 0.3);
+        border-right: 1px solid rgba(151, 151, 151, 0.3);
+        position: relative;
+      }
+
+      #chart.for-bar
+        .chart-body
+        .chart-graph
+        .chart-graph-inner
+        .label-table
+        .y-axis {
+        font-size: 11px;
+        padding: 10px;
+        position: absolute;
+        right: 100%;
+        bottom: 100%;
+        transform: translate(0, 50%);
+      }
+
+      #chart.for-bar
+        .chart-body
+        .chart-graph
+        .chart-graph-inner
+        .label-table
+        .y-axis.y-axis-zero {
+        top: 100%;
+        transform: translate(0, -50%);
+        bottom: auto;
+      }
+
+      #chart.for-bar
+        .chart-body
+        .chart-graph
+        .chart-graph-inner
+        .label-table
+        .x-axis {
+        position: absolute;
+        top: 100%;
+        width: 100%;
+        text-align: center;
+        padding: 10px 0;
+        font-size: 11px;
+      }
+
+      #chart.for-bar .chart-body .chart-graph .chart-graph-inner .bar-table {
+        position: absolute;
+        border-collapse: collapse;
+        width: 100%;
+        height: 100%;
+        border: 0;
+        top: 0;
+        left: 0;
+        -webkit-transition: all 1s ease-in-out 0.1s;
+        -moz-transition: all 1s ease-in-out 0.1s;
+        -ms-transition: all 1s ease-in-out 0.1s;
+        -o-transition: all 1s ease-in-out 0.1s;
+        transition: all 1s ease-in-out 0.1s;
+        transform-origin: bottom;
+      }
+
+      #chart.for-bar
+        .chart-body
+        .chart-graph
+        .chart-graph-inner
+        .bar-table
+        tr
+        td {
+        border: 0;
+        vertical-align: bottom;
+      }
+
+      #chart.for-bar
+        .chart-body
+        .chart-graph
+        .chart-graph-inner
+        .bar-table
+        tr
+        td
+        .bar {
+        width: 60%;
+        height: 30%;
+        margin: auto;
+        position: relative;
+      }
+
+      #chart.for-bar
+        .chart-body
+        .chart-graph
+        .chart-graph-inner
+        .bar-table
+        tr
+        td
+        .bar:nth-of-type(1) {
+        background-color: #3ec1c1;
+      }
+      #chart.for-bar
+        .chart-body
+        .chart-graph
+        .chart-graph-inner
+        .bar-table
+        tr
+        td
+        .bar:nth-of-type(2) {
+        background-color: #f55858;
+      }
+      #chart.for-bar
+        .chart-body
+        .chart-graph
+        .chart-graph-inner
+        .bar-table
+        tr
+        td
+        .bar:nth-of-type(3) {
+        background-color: #4a90e2;
+      }
+      #chart.for-bar
+        .chart-body
+        .chart-graph
+        .chart-graph-inner
+        .bar-table
+        tr
+        td
+        .bar:nth-of-type(4) {
+        background-color: #ffcf00;
+      }
+
+      #chart.for-bar .chart-body .chart-legend {
+        text-align: center;
+        position: absolute;
+        top: 15px;
+        left: 0;
+        width: 100%;
+      }
+
+      #chart.for-bar .chart-body .chart-legend .chart-legend-inner {
+        line-height: normal;
+      }
+
+      #chart.for-bar .chart-body .chart-legend .chart-legend-inner .legend-row {
+        display: inline-block;
+        margin: 5px 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div id="option">
+        <div class="row">
+          <div class="col name">성별</div>
+          <div class="col">
+            <button
+              class="btn-option selected"
+              data-type="gender"
+              data-value="male"
+            >
+              남성
+            </button>
+          </div>
+          <div class="col">
+            <button class="btn-option" data-type="gender" data-value="female">
+              여성
+            </button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col name">연령</div>
+          <div class="col">
+            <button class="btn-option" data-type="age" data-value="20">
+              20대
+            </button>
+          </div>
+          <div class="col">
+            <button class="btn-option selected" data-type="age" data-value="30">
+              30대
+            </button>
+          </div>
+          <div class="col">
+            <button class="btn-option selected" data-type="age" data-value="40">
+              40대
+            </button>
+          </div>
+          <div class="col">
+            <button class="btn-option selected" data-type="age" data-value="50">
+              50대
+            </button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col name">문항</div>
+          <div class="col">
+            <button class="btn-option" data-type="questions" data-value="1">
+              1번문항
+            </button>
+          </div>
+          <div class="col">
+            <button
+              class="btn-option selected"
+              data-type="questions"
+              data-value="2"
+            >
+              2번문항
+            </button>
+          </div>
+          <div class="col">
+            <button class="btn-option" data-type="questions" data-value="3">
+              3번문항
+            </button>
+          </div>
+          <div class="col">
+            <button class="btn-option" data-type="questions" data-value="4">
+              4번문항
+            </button>
+          </div>
+          <div class="col">
+            <button class="btn-option" data-type="questions" data-value="5">
+              5번문항
+            </button>
+          </div>
+        </div>
+      </div>
+      <div id="chart" class="for-bar">
+        <div class="chart-guide" style="visibility: hidden">
+          상단의 옵션을 선택하면,<br />그래프가 보여집니다.
+        </div>
+        <div class="chart-head">
+          <div class="chart-title">
+            과거 명절 연휴에 고향 대신 해외여행을 간 경험이 있나요?
+          </div>
+        </div>
+        <div class="chart-body">
+          <div class="chart-graph">
+            <div class="chart-graph-inner">
+              <table class="label-table">
+                <tbody>
+                  <tr>
+                    <td><div class="y-axis">800</div></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td><div class="y-axis">700</div></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td><div class="y-axis">600</div></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td><div class="y-axis">500</div></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td><div class="y-axis">400</div></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td><div class="y-axis">300</div></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td><div class="y-axis">200</div></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="y-axis">100</div>
+                      <div class="x-axis">네</div>
+                      <div class="y-axis y-axis-zero">0</div>
+                    </td>
+                    <td><div class="x-axis">앞으로는 가고 싶다</div></td>
+                    <td><div class="x-axis">앞으로도 갈 계획이 없다</div></td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="bar-table">
+                <tbody>
+                  <tr>
+                    <td>
+                      <div class="bar" style="height: 8.375%"></div>
+                      <div class="bar" style="height: 13.375%"></div>
+                      <div class="bar" style="height: 14.875%"></div>
+                    </td>
+                    <td>
+                      <div class="bar" style="height: 26.875%"></div>
+                      <div class="bar" style="height: 37.625%"></div>
+                      <div class="bar" style="height: 34.5%"></div>
+                    </td>
+                    <td>
+                      <div class="bar" style="height: 4.5%"></div>
+                      <div class="bar" style="height: 8%"></div>
+                      <div class="bar" style="height: 10.625%"></div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="chart-legend">
+            <div class="chart-legend-inner">
+              <div class="legend-row">
+                <div class="rect-sm"></div>
+                <div class="label">30대</div>
+              </div>
+              <div class="legend-row">
+                <div class="rect-sm"></div>
+                <div class="label">40대</div>
+              </div>
+              <div class="legend-row">
+                <div class="rect-sm"></div>
+                <div class="label">50대</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
