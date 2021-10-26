@@ -28,3 +28,9 @@
 ![간단 디자인](https://grepp-programmers.s3.amazonaws.com/production/lecture/learn/attachment/file/1688/%E1%84%87%E1%85%B3%E1%86%AF%E1%84%85%E1%85%A9%E1%84%80%E1%85%B3%E1%84%8A%E1%85%B5_%E1%84%80%E1%85%A1%E1%86%AB%E1%84%83%E1%85%A1%E1%86%AB_%E1%84%83%E1%85%B5%E1%84%8C%E1%85%A1%E1%84%8B%E1%85%B5%E1%86%AB.png)
 
 - 위의 이미지는 예시 이미지 입니다.
+
+### 실행
+
+```
+npx serve ./
+```
