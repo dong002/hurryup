@@ -8,7 +8,8 @@ const month = document.getElementById("month");
 const text = document.getElementById("answer-input");
 
 const getQuestions = () => {
-    return fetch("../db/data.json")
+    return fetch("../db/data.json",{
+    })
       .then((res) => res.json())
       .then((json) => json.questions);
   };
@@ -41,10 +42,6 @@ function redirect(){
  * 저장 버튼 클릭 함수
  */
 function handleSave() {
-    console.log('Dong')
-    setAnswer(tid,text.value);
-}
-function Savehandle(){
     alert("저장되었습니다")
     setAnswer(tid,text.value);
 }
@@ -84,7 +81,7 @@ function init() {
   redirect();
   document.getElementById("next-btn").addEventListener("click",handleNext)
   document.getElementById("prev-btn").addEventListener("click",handlePrev)
-  document.getElementById("save-btn").addEventListener("click",Savehandle)
+  document.getElementById("save-btn").addEventListener("click",handleSave)
 
 }
 
